@@ -1,12 +1,25 @@
 opam-version: "2.0"
-name: "ocamlformat_auto_completion"
+synopsis: "ocamlformat_auto_completion"
 depends: [
-  "ocaml" {>= "4.11"}
-  "dune" {>= "2.8"}
-  "ocamlformat" {= "0.18.0"}
-  "lsp"
+  "dune" {>= "2.9"}
+  "ocaml" {>= "4.12"}
+  "lsp" {= "1.7.0"}
+  "odoc" {with-doc}
 ]
 build: [
-  ["dune" "subst"] {pinned}
-  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "subst" "--root" "."] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "--promote-install-files"
+    "false"
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+  ["dune" "install" "-p" name "--create-install-files" name]
 ]

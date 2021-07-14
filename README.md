@@ -3,8 +3,7 @@
 ## bootstrap
 
 ```sh
-opam switch create . 4.11.1 --no-install
-eval (opam env) # depends on your shell
+opam switch create . 4.12.0 --no-install
 opam install . --deps-only
 ```
 
