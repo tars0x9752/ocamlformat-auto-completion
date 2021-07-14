@@ -1,0 +1,12 @@
+opam-version: "2.0"
+name: "ocamlformat_auto_completion"
+depends: [
+  "ocaml" {>= "4.11"}
+  "dune" {>= "2.8"}
+  "ocamlformat" {= "0.18.0"}
+  "lsp"
+]
+build: [
+  ["dune" "subst"] {pinned}
+  ["dune" "build" "-p" name "-j" jobs]
+]
