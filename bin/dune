@@ -1,0 +1,4 @@
+(executable
+ (public_name ocamlformat_auto_completion)
+ (name main)
+ (libraries ocamlformat_auto_completion))

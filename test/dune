@@ -1,0 +1,2 @@
+(test
+ (name ocamlformat_auto_completion))
