@@ -1,1 +1,1 @@
-let () = print_endline "Hello, World!"
+let () = print_endline Ocamlformat_auto_completion.Msg.text
