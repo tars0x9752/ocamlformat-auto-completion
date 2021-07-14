@@ -1,2 +1,3 @@
 (library
- (name ocamlformat_auto_completion))
+ (name ocamlformat_auto_completion)
+ (libraries lsp))

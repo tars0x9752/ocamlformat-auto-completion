@@ -5,6 +5,7 @@ depends: [
   "ocaml" {>= "4.12"}
   "lsp" {= "1.7.0"}
   "odoc" {with-doc}
+  "ocamlformat" {= "0.18.0"}
 ]
 build: [
   ["dune" "subst" "--root" "."] {dev}

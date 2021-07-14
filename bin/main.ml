@@ -1,1 +1,1 @@
-let () = print_endline Ocamlformat_auto_completion.Msg.text
+let () = print_endline (Ocamlformat_auto_completion.Msg.get_option_key "SoME-key = value")
