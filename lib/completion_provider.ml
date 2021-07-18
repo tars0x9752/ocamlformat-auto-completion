@@ -1,4 +1,4 @@
-open Import
+(* open Import *)
 open Options_v0_18_0
 
 let eq = '='
@@ -18,7 +18,7 @@ let get_suggested_values key =
   option.values
 
 let create_value_completion_item documentation value =
-  CompletionItem.create ~label:value ~kind:CompletionItemKind.Value
+  Lsp.Types.CompletionItem.create ~label:value ~kind:Lsp.Types.CompletionItemKind.Value
     ~documentation ()
 
 let create_value_completion_item_list documentation values =
@@ -28,7 +28,7 @@ let create_value_completion_item_list documentation values =
 let create_key_completion_item_list () =
   let f option =
     let documentation = `String option.documentation in
-    CompletionItem.create ~label:option.key ~kind:CompletionItemKind.Property
+    Lsp.Types.CompletionItem.create ~label:option.key ~kind:Lsp.Types.CompletionItemKind.Property
       ~documentation ()
   in
   List.map f options
@@ -47,10 +47,10 @@ let auto_complete text_line_up_to_cursor =
     auto_complete_value text_line_up_to_cursor
   else auto_complete_key ()
 
-let handle_completion_request (current_textDocument : TextDocumentItem.t)
-    (params : CompletionParams.t) =
+let handle_completion_request (current_textDocument : Lsp.Types.TextDocumentItem.t)
+    (params : Lsp.Types.CompletionParams.t) =
   let is_request_same_as_current_text_document =
-    Uri.equal current_textDocument.uri params.textDocument.uri
+    current_textDocument.uri = params.textDocument.uri
   in
   if is_request_same_as_current_text_document then
     let text = current_textDocument.text in
