@@ -2,4 +2,4 @@
  (public_name ocamlformat_auto_completion)
  (name main)
  (modes (best exe))
- (libraries ocamlformat_auto_completion))
+ (libraries ocamlformat_auto_completion lsp))

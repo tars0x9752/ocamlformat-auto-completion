@@ -27,24 +27,37 @@ let create_value_completion_item_list documentation values =
 
 let create_key_completion_item_list () =
   let f option =
+    let documentation = `String option.documentation in
     CompletionItem.create ~label:option.key ~kind:CompletionItemKind.Property
+      ~documentation
   in
   List.map f options
 
-let auto_complete_option_values text_of_line_up_to_cursor =
-  let key = get_option_key text_of_line_up_to_cursor in
+let auto_complete_value text_line_up_to_cursor =
+  let key = get_option_key text_line_up_to_cursor in
   let suggested_values = get_suggested_values key in
   let finder option = option.key = key in
   let docs = (List.find finder options).documentation in
   create_value_completion_item_list (`String docs) suggested_values
 
-let handle_completion_request
-    (current_textDocument : TextDocumentItem.t)
+let auto_complete_key = create_key_completion_item_list
+
+let auto_complete text_line_up_to_cursor =
+  if has_option_key text_line_up_to_cursor then
+    auto_complete_value text_line_up_to_cursor
+  else auto_complete_key ()
+
+let handle_completion_request (current_textDocument : TextDocumentItem.t)
     (params : CompletionParams.t) =
   let is_request_same_as_current_text_document =
     Uri.equal current_textDocument.uri params.textDocument.uri
   in
   if is_request_same_as_current_text_document then
-    (* TOOD: get text_of_line_up_to_cursor from current_textDocument.text and params.position*)
-    auto_complete_option_values current_textDocument.text 
+    let text = current_textDocument.text in
+    let position = params.position in
+    let entire_line_text = Text.get_entire_line_text text position in
+    let text_line_up_to_cursor =
+      Text.get_text_line_up_to_cursor entire_line_text position
+    in
+    auto_complete text_line_up_to_cursor
   else []
