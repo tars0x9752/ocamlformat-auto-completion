@@ -39,11 +39,12 @@ let auto_complete_option_values text_of_line_up_to_cursor =
   create_value_completion_item_list (`String docs) suggested_values
 
 let handle_completion_request
-    (current_text_document : DidOpenTextDocumentParams.t)
+    (current_textDocument : TextDocumentItem.t)
     (params : CompletionParams.t) =
   let is_request_same_as_current_text_document =
-    Uri.equal current_text_document.textDocument.uri params.textDocument.uri
+    Uri.equal current_textDocument.uri params.textDocument.uri
   in
   if is_request_same_as_current_text_document then
-    auto_complete_option_values current_text_document.textDocument.text
+    (* TOOD: get text_of_line_up_to_cursor from current_textDocument.text and params.position*)
+    auto_complete_option_values current_textDocument.text 
   else []
