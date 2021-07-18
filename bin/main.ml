@@ -1,7 +1,7 @@
 open Ocamlformat_auto_completion
 
-let profile_values = Completion_provider.get_suggested_values "profile"
+let response = Completion_provider.auto_complete "profile="
 
-let print_value v = print_endline v
+let print_label (v: Lsp.Types.CompletionItem.t) = print_endline v.label  
 
-let () = List.iter print_value profile_values
+let () = List.iter print_label response

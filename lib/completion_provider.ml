@@ -19,7 +19,7 @@ let get_suggested_values key =
 
 let create_value_completion_item documentation value =
   CompletionItem.create ~label:value ~kind:CompletionItemKind.Value
-    ~documentation
+    ~documentation ()
 
 let create_value_completion_item_list documentation values =
   let f = create_value_completion_item documentation in
@@ -29,7 +29,7 @@ let create_key_completion_item_list () =
   let f option =
     let documentation = `String option.documentation in
     CompletionItem.create ~label:option.key ~kind:CompletionItemKind.Property
-      ~documentation
+      ~documentation ()
   in
   List.map f options
 
