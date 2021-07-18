@@ -56,3 +56,4 @@ module DidChangeConfigurationParams = Lsp.Types.DidChangeConfigurationParams
 module ConfigurationParams = Lsp.Types.ConfigurationParams
 module RenameOptions = Lsp.Types.RenameOptions
 module Uri = Lsp.Uri
+module TextDocumentItem = TextDocumentItem
