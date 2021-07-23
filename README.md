@@ -1,8 +1,8 @@
 # ocamlformat_auto_completion
 
-Auto completion provider for `.ocamlformat` file.
+Auto completion provider for OCamlFormat config file. (`.ocamlformat`)
 
-VSCode Extension version: [ocamlformat-auto-completion-vscode](https://github.com/tars0x9752/ocamlformat-auto-completion-vscode).
+VSCode Extension version: [ocamlformat-auto-completion-vscode](https://github.com/tars0x9752/ocamlformat-auto-completion-vscode)
 
 ## development
 
