@@ -1,8 +1,12 @@
 # ocamlformat_auto_completion
 
-Translation by OCaml for core part of [ocamlformat-auto-completion-vscode](https://github.com/tars0x9752/ocamlformat-auto-completion-vscode).
+Auto completion provider for `.ocamlformat` file.
 
-## bootstrap
+VSCode Extension version: [ocamlformat-auto-completion-vscode](https://github.com/tars0x9752/ocamlformat-auto-completion-vscode).
+
+## development
+
+### bootstrap
 
 ```sh
 opam switch create . 4.12.0 --no-install
@@ -11,13 +15,13 @@ opam install . --deps-only
 
 > don't forget to eval `opam env` to switch compiler.
 
-## build
+### build
 
 ```sh
 dune build
 ```
 
-## run
+### run
 
 ```sh
 dune exec bin/main.exe
