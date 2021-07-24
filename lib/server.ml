@@ -9,8 +9,9 @@ class lsp_server =
       Hashtbl.add buffers d.uri content;
       Linol_lwt.return ()
 
-    method on_notif_doc_did_change ~notify_back:_ _d _c ~old_content:_old
-        ~new_content:_ =
+    method on_notif_doc_did_change ~notify_back:_ d _c ~old_content:_old
+        ~new_content =
+      Hashtbl.replace buffers d.uri new_content;
       Linol_lwt.return ()
 
     method on_notif_doc_did_close ~notify_back:_ d : unit Linol_lwt.t =
