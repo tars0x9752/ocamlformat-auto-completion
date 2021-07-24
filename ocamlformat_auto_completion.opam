@@ -4,8 +4,8 @@ depends: [
   "dune" {>= "2.9"}
   "ocaml" {>= "4.12"}
   "lsp" {= "1.7.0"}
-  "odoc" {with-doc}
   "ocamlformat" {= "0.18.0"}
+  "linol-lwt" {= "0.3"}
 ]
 build: [
   ["dune" "subst" "--root" "."] {dev}
