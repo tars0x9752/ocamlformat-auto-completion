@@ -2,20 +2,20 @@ class lsp_server =
   object
     inherit Linol_lwt.Jsonrpc2.server
 
-    val buffers : (Lsp.Types.DocumentUri.t, string) Hashtbl.t =
+    val content_table : (Lsp.Types.DocumentUri.t, string) Hashtbl.t =
       Hashtbl.create 32
 
     method on_notif_doc_did_open ~notify_back:_ d ~content : unit Linol_lwt.t =
-      Hashtbl.add buffers d.uri content;
+      Hashtbl.add content_table d.uri content;
       Linol_lwt.return ()
 
     method on_notif_doc_did_change ~notify_back:_ d _c ~old_content:_old
         ~new_content =
-      Hashtbl.replace buffers d.uri new_content;
+      Hashtbl.replace content_table d.uri new_content;
       Linol_lwt.return ()
 
     method on_notif_doc_did_close ~notify_back:_ d : unit Linol_lwt.t =
-      Hashtbl.remove buffers d.uri;
+      Hashtbl.remove content_table d.uri;
       Linol_lwt.return ()
   end
 
