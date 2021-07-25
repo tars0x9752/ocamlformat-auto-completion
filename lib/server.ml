@@ -31,7 +31,7 @@ class lsp_server =
 
     method! config_modify_capabilities (c : Linol_lwt.ServerCapabilities.t)
         : Linol_lwt.ServerCapabilities.t =
-        let completionProvider = Linol_lwt.CompletionOptions.create ~resolveProvider:true () in 
+        let completionProvider = Linol_lwt.CompletionOptions.create ~resolveProvider:false () in 
         {c with completionProvider = Some completionProvider}
   end
 
