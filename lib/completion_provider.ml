@@ -18,8 +18,8 @@ let get_suggested_values key =
   option.values
 
 let create_value_completion_item documentation value =
-  Lsp.Types.CompletionItem.create ~label:value ~kind:Lsp.Types.CompletionItemKind.Value
-    ~documentation ()
+  Lsp.Types.CompletionItem.create ~label:value
+    ~kind:Lsp.Types.CompletionItemKind.Value ~documentation ()
 
 let create_value_completion_item_list documentation values =
   let f = create_value_completion_item documentation in
@@ -28,8 +28,8 @@ let create_value_completion_item_list documentation values =
 let create_key_completion_item_list () =
   let f option =
     let documentation = `String option.documentation in
-    Lsp.Types.CompletionItem.create ~label:option.key ~kind:Lsp.Types.CompletionItemKind.Property
-      ~documentation ()
+    Lsp.Types.CompletionItem.create ~label:option.key
+      ~kind:Lsp.Types.CompletionItemKind.Property ~documentation ()
   in
   List.map f options
 
@@ -47,17 +47,9 @@ let auto_complete text_line_up_to_cursor =
     auto_complete_value text_line_up_to_cursor
   else auto_complete_key ()
 
-let handle_completion_request (current_textDocument : Lsp.Types.TextDocumentItem.t)
-    (params : Lsp.Types.CompletionParams.t) =
-  let is_request_same_as_current_text_document =
-    current_textDocument.uri = params.textDocument.uri
+let handle_completion_request text position =
+  let entire_line_text = Text.get_entire_line_text text position in
+  let text_line_up_to_cursor =
+    Text.get_text_line_up_to_cursor entire_line_text position
   in
-  if is_request_same_as_current_text_document then
-    let text = current_textDocument.text in
-    let position = params.position in
-    let entire_line_text = Text.get_entire_line_text text position in
-    let text_line_up_to_cursor =
-      Text.get_text_line_up_to_cursor entire_line_text position
-    in
-    auto_complete text_line_up_to_cursor
-  else []
+  auto_complete text_line_up_to_cursor

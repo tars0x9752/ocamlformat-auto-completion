@@ -17,6 +17,11 @@ class lsp_server =
     method on_notif_doc_did_close ~notify_back:_ d : unit Linol_lwt.t =
       Hashtbl.remove content_table d.uri;
       Linol_lwt.return ()
+
+    method! on_req_completion ~notify_back:_ ~id:_ ~uri ~pos ~ctx:_ _ =
+      let content = Hashtbl.find content_table uri in
+      let res = Completion_provider.handle_completion_request content pos in
+      Linol_lwt.return (Some (`List res))
   end
 
 let run () =
@@ -29,5 +34,3 @@ let run () =
     let e = Printexc.to_string e in
     Printf.eprintf "error: %s\n%!" e;
     exit 1
-
-let () = run ()
