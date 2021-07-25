@@ -7,5 +7,5 @@ let get_entire_line_text text (position : Lsp.Types.Position.t) =
   List.nth text_line_list position.line
 
 let get_text_line_up_to_cursor text (position : Lsp.Types.Position.t) =
-  let entire_text = get_entire_line_text text position in
-  String.sub entire_text 0 position.character
+  let entire_line_text = get_entire_line_text text position in
+  String.sub entire_line_text 0 position.character

@@ -48,8 +48,14 @@ let auto_complete text_line_up_to_cursor =
   else auto_complete_key ()
 
 let handle_completion_request text position =
-  let entire_line_text = Text.get_entire_line_text text position in
   let text_line_up_to_cursor =
-    Text.get_text_line_up_to_cursor entire_line_text position
+    Text.get_text_line_up_to_cursor text position
   in
   auto_complete text_line_up_to_cursor
+
+let printer (x : Lsp.Types.CompletionItem.t) = print_endline x.label
+
+let test () =
+  let p = Lsp.Types.Position.create ~line:2 ~character:0 in
+  let text = "version=0.18.0\nbreak-cases=all\n" in
+  handle_completion_request text p
